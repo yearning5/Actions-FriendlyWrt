@@ -78,7 +78,13 @@ jobs:
         cd project
         source ../scripts/add_packages.sh
         source ../scripts/custome_config.sh
-
+    - name: Debug structure
+      run: |
+        cd project
+        ls device/friendlyelec/ 2>/dev/null || echo "no friendlyelec dir"
+        ls device/ 2>/dev/null || echo "no device dir"
+        cat .current_config.mk 2>/dev/null || echo "no current config"
+        find . -name "base.mk" 2>/dev/null | head -10
     - name: Prepare dot config and feeds
       run: |
         cd project
