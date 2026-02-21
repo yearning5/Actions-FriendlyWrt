@@ -31,21 +31,17 @@ function init_theme() {
 EOL
 sed -i -e '/boardname=/r /tmp/appendtext.txt' friendlywrt/target/linux/rockchip/armv8/base-files/root/setup.sh
 # }}
-# Add OpenAppFilter
+ Add OpenAppFilter
 (cd friendlywrt && {
     git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter --depth 1
+    echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
+    echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
+    echo "CONFIG_PACKAGE_kmod-oaf=y" >> .config
 })
-cat >> configs/rockchip/01-nanopi <<EOL
-CONFIG_PACKAGE_open-app-filter=y
-CONFIG_PACKAGE_luci-app-oaf=y
-CONFIG_PACKAGE_kmod-oaf=y
-EOL
 
 # Add AdGuard Home
 (cd friendlywrt && {
     git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome --depth 1
+    echo "CONFIG_PACKAGE_adguardhome=y" >> .config
+    echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
 })
-cat >> configs/rockchip/01-nanopi <<EOL
-CONFIG_PACKAGE_adguardhome=y
-CONFIG_PACKAGE_luci-app-adguardhome=y
-EOL
