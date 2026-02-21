@@ -140,9 +140,9 @@ jobs:
 
     strategy:
       matrix:
-        VERSION: ['23.05', '24.10']
-        CPU: [rk3328, rk3528, rk3399, rk3566, rk3568, rk3576, rk3588]
-        SET: [docker, non-docker]
+        VERSION: ['23.05']
+        CPU: [rk3328]
+        SET: [docker]
     steps:
     - name: Checkout
       uses: actions/checkout@main
