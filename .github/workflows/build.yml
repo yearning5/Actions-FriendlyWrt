@@ -82,12 +82,12 @@ jobs:
     - name: Prepare dot config and feeds
       run: |
         cd project
+        echo "CPU is: ${{ matrix.CPU }}"
         [ "${{ matrix.SET }}" == "docker" ] && SUFFIX="-docker"
         DIRNAME=friendlywrt$(echo ${{ matrix.VERSION }}|awk -F . '{print $1}')${SUFFIX}
         CONFIG=rockchip${SUFFIX}
-        CPU=${{ matrix.CPU }}
         cat > .current_config.mk <<EOL
-        . device/friendlyelec/${CPU}/base.mk
+        . device/friendlyelec/rk3328/base.mk
         TARGET_IMAGE_DIRNAME=${DIRNAME}
         TARGET_FRIENDLYWRT_CONFIG=${CONFIG}
         EOL
