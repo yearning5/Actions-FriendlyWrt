@@ -31,3 +31,21 @@ function init_theme() {
 EOL
 sed -i -e '/boardname=/r /tmp/appendtext.txt' friendlywrt/target/linux/rockchip/armv8/base-files/root/setup.sh
 # }}
+# Add OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter
+
+# Add AdGuard Home
+cat >> feeds.conf.default << 'EOF'
+src-git adguardhome https://github.com/rufengsuixing/luci-app-adguardhome.git
+EOF
+
+# Enable packages in config
+cat >> .config << 'EOF'
+CONFIG_PACKAGE_open-app-filter=y
+CONFIG_PACKAGE_luci-app-oaf=y
+CONFIG_PACKAGE_adguardhome=y
+CONFIG_PACKAGE_luci-app-adguardhome=y
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-opkg=y
+EOF
