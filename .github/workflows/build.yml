@@ -98,14 +98,7 @@ jobs:
         TARGET_FRIENDLYWRT_CONFIG=${CONFIG}
         EOL
         DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
-    - name: Add OpenAppFilter config
-      run: |
-        cd project/friendlywrt
-        echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
-        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
-        echo "CONFIG_PACKAGE_kmod-oaf=y" >> .config
-        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
-        make defconfig
+
     - name: Download package
       run: |
         cd project/friendlywrt
@@ -113,6 +106,13 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Add OpenAppFilter config
+      run: |
+        cd project/friendlywrt
+        echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
+        echo "CONFIG_PACKAGE_kmod-oaf=y" >> .config
+        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
     - name: Compile friendlyWrt
       id: compile
       continue-on-error: true
