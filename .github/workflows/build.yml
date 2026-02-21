@@ -85,8 +85,9 @@ jobs:
         [ "${{ matrix.SET }}" == "docker" ] && SUFFIX="-docker"
         DIRNAME=friendlywrt$(echo ${{ matrix.VERSION }}|awk -F . '{print $1}')${SUFFIX}
         CONFIG=rockchip${SUFFIX}
+        CPU=${{ matrix.CPU }}
         cat > .current_config.mk <<EOL
-        . device/friendlyelec/${{ matrix.CPU }}/base.mk
+        . device/friendlyelec/${CPU}/base.mk
         TARGET_IMAGE_DIRNAME=${DIRNAME}
         TARGET_FRIENDLYWRT_CONFIG=${CONFIG}
         EOL
@@ -177,7 +178,7 @@ jobs:
     - name: Download source
       run: |
         mkdir project
-        cd project
+        cd Prepare dot config and feeds
         repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests -b master-v${{ matrix.VERSION }} \
                 -m ${{ matrix.CPU }}.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle
 
