@@ -108,7 +108,9 @@ jobs:
     - name: Add OpenAppFilter config
       run: |
         cd project
-        cat device/friendlyelec/rk3328/base.mk
+        find . -name "rockchip" -o -name "rockchip.config" 2>/dev/null | head -10
+        find . -path "*/configs/rockchip*" 2>/dev/null | head -10
+        ls friendlywrt/configs/ 2>/dev/null || echo "no configs"
         
     - name: Compile friendlyWrt
       id: compile
