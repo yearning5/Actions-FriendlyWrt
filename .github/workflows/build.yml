@@ -85,17 +85,6 @@ jobs:
         ls device/ 2>/dev/null || echo "no device dir"
         cat .current_config.mk 2>/dev/null || echo "no current config"
         find . -name "base.mk" 2>/dev/null | head -10
-    - name: Add OpenAppFilter config
-      run: |
-        cd project/friendlywrt
-        ls -la
-        ls configs/ 2>/dev/null || echo "no configs dir"
-        find . -name "01-nanopi" 2>/dev/null
-        echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip/01-nanopi
     - name: Prepare dot config and feeds
       run: |
         cd project
@@ -116,7 +105,17 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
+    - name: Add OpenAppFilter config
+      run: |
+        cd project/friendlywrt
+        mkdir -p configs/rockchip
+        touch configs/rockchip/01-nanopi
+        echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip/01-nanopi
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip/01-nanopi
+        echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip/01-nanopi
+        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip/01-nanopi
+        echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip/01-nanopi
+        
     - name: Compile friendlyWrt
       id: compile
       continue-on-error: true
