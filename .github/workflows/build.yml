@@ -108,8 +108,7 @@ jobs:
     - name: Add OpenAppFilter config
       run: |
         cd project
-        find . -name "*.mk" | xargs grep -l "nanopi" 2>/dev/null | head -5
-        find . -path "*/device/friendlyelec/rk3328*" | head -10
+        cat device/friendlyelec/rk3328/base.mk
         
     - name: Compile friendlyWrt
       id: compile
