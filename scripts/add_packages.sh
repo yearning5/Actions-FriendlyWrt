@@ -36,9 +36,4 @@ sed -i -e '/boardname=/r /tmp/appendtext.txt' friendlywrt/target/linux/rockchip/
     git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter --depth 1
     git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome --depth 1
     rm -rf package/utils/usb-modeswitch-official
-    echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip/01-nanopi
-    echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip/01-nanopi
-    echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip/01-nanopi
-    echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip/01-nanopi
-    echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip/01-nanopi
 })
