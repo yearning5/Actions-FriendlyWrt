@@ -108,9 +108,11 @@ jobs:
     - name: Add OpenAppFilter config
       run: |
         cd project
-        find . -name "rockchip" -o -name "rockchip.config" 2>/dev/null | head -10
-        find . -path "*/configs/rockchip*" 2>/dev/null | head -10
-        ls friendlywrt/configs/ 2>/dev/null || echo "no configs"
+        echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip-docker/01-nanopi
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip-docker/01-nanopi
+        echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip-docker/01-nanopi
+        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip-docker/01-nanopi
+        echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip-docker/01-nanopi
         
     - name: Compile friendlyWrt
       id: compile
