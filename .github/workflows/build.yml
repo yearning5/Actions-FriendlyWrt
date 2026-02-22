@@ -85,6 +85,13 @@ jobs:
         ls device/ 2>/dev/null || echo "no device dir"
         cat .current_config.mk 2>/dev/null || echo "no current config"
         find . -name "base.mk" 2>/dev/null | head -10
+    - name: Add OpenAppFilter config
+      run: |
+        cd project/friendlywrt
+        echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
+        echo "CONFIG_PACKAGE_kmod-oaf=y" >> .config
+        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
     - name: Prepare dot config and feeds
       run: |
         cd project
@@ -106,13 +113,6 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Add OpenAppFilter config
-      run: |
-        cd project/friendlywrt
-        echo "CONFIG_PACKAGE_open-app-filter=y" >> .config
-        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
-        echo "CONFIG_PACKAGE_kmod-oaf=y" >> .config
-        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
     - name: Compile friendlyWrt
       id: compile
       continue-on-error: true
