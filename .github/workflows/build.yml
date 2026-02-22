@@ -107,14 +107,9 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
     - name: Add OpenAppFilter config
       run: |
-        cd project/friendlywrt
-        mkdir -p configs/rockchip
-        touch configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip/01-nanopi
-        echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip/01-nanopi
+        cd project
+        find . -name "*.mk" | xargs grep -l "nanopi" 2>/dev/null | head -5
+        find . -path "*/device/friendlyelec/rk3328*" | head -10
         
     - name: Compile friendlyWrt
       id: compile
