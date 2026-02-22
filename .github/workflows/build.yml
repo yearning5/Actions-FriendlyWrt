@@ -88,8 +88,9 @@ jobs:
     - name: Add OpenAppFilter config
       run: |
         cd project/friendlywrt
-        echo "checking current target:"
-        grep "TARGET_BOARD" .config | head -3
+        ls -la
+        ls configs/ 2>/dev/null || echo "no configs dir"
+        find . -name "01-nanopi" 2>/dev/null
         echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip/01-nanopi
         echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip/01-nanopi
         echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip/01-nanopi
