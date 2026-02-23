@@ -185,7 +185,7 @@ jobs:
     - name: Download source
       run: |
         mkdir project
-        cd Prepare dot config and feeds
+        cd project
         repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests -b master-v${{ matrix.VERSION }} \
                 -m ${{ matrix.CPU }}.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle
 
