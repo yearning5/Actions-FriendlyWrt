@@ -98,13 +98,6 @@ jobs:
         TARGET_FRIENDLYWRT_CONFIG=${CONFIG}
         EOL
         DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
-
-    - name: Download package
-      run: |
-        cd project/friendlywrt
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
     - name: Add OpenAppFilter config
       run: |
         cd project
@@ -114,6 +107,12 @@ jobs:
         echo "CONFIG_PACKAGE_appfilter=y" >> configs/rockchip-docker/01-nanopi
         echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip-docker/01-nanopi
         echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip-docker/01-nanopi
+    - name: Download package
+      run: |
+        cd project/friendlywrt
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
         
     - name: Compile friendlyWrt
       id: compile
