@@ -72,6 +72,9 @@ jobs:
         repo sync -c scripts --no-clone-bundle
         repo sync -c scripts/sd-fuse  --no-clone-bundle
         repo sync -c toolchain  --no-clone-bundle
+        repo sync -c kernel --no-clone-bundle
+        repo sync -c u-boot --no-clone-bundle
+        repo sync -c rkbin --no-clone-bundle
 
     - name: Apply customizations
       run: |
@@ -100,13 +103,11 @@ jobs:
         DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
     - name: Add OpenAppFilter config
       run: |
-        cd project
-        echo "CONFIG_PACKAGE_open-app-filter=y" >> configs/rockchip-docker/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> configs/rockchip-docker/01-nanopi
-        echo "CONFIG_PACKAGE_kmod-oaf=y" >> configs/rockchip-docker/01-nanopi
-        echo "CONFIG_PACKAGE_appfilter=y" >> configs/rockchip-docker/01-nanopi
-        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> configs/rockchip-docker/01-nanopi
-        echo "CONFIG_PACKAGE_adguardhome=y" >> configs/rockchip-docker/01-nanopi
+        cd project/friendlywrt
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
+        echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
+        echo "CONFIG_PACKAGE_adguardhome=y" >> .config
+        make defconfig
     - name: Download package
       run: |
         cd project/friendlywrt
