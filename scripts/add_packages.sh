@@ -2,8 +2,10 @@
 
 # {{ Add luci-app-diskman
 (cd friendlywrt && {
-    mkdir -p package/luci-app-diskman
-    wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/applications/luci-app-diskman/Makefile.old -O package/luci-app-diskman/Makefile
+    sed -i 's|https://git.openwrt.org/feed/packages.git|https://github.com/openwrt/packages.git|g' feeds.conf.default
+    sed -i 's|https://git.openwrt.org/project/luci.git|https://github.com/openwrt/luci.git|g' feeds.conf.default
+    sed -i 's|https://git.openwrt.org/feed/routing.git|https://github.com/openwrt/routing.git|g' feeds.conf.default
+    sed -i 's|https://git.openwrt.org/feed/telephony.git|https://github.com/openwrt/telephony.git|g' feeds.conf.default
 })
 cat >> configs/rockchip/01-nanopi <<EOL
 CONFIG_PACKAGE_luci-app-diskman=y
