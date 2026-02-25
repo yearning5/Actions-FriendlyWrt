@@ -91,7 +91,6 @@ jobs:
     - name: Prepare dot config and feeds
       run: |
         cd project
-        echo "CPU is: ${{ matrix.CPU }}"
         [ "${{ matrix.SET }}" == "docker" ] && SUFFIX="-docker"
         DIRNAME=friendlywrt$(echo ${{ matrix.VERSION }}|awk -F . '{print $1}')${SUFFIX}
         CONFIG=rockchip${SUFFIX}
@@ -101,9 +100,7 @@ jobs:
         TARGET_FRIENDLYWRT_CONFIG=${CONFIG}
         EOL
         DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
-    - name: Add OpenAppFilter config
-      run: |
-        cd project/friendlywrt
+        cd friendlywrt
         echo "CONFIG_PACKAGE_luci-app-oaf=y" >> .config
         echo "CONFIG_PACKAGE_luci-app-adguardhome=y" >> .config
         echo "CONFIG_PACKAGE_adguardhome=y" >> .config
